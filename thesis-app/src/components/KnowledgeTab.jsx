@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { ref, onValue } from 'firebase/database';
 import SearchBar from './SearchBar';
-import SidePanel from './SidePanel';
 import './KnowledgeTab.css';
 
 function KnowledgeTab() {
   const [articles, setArticles] = useState([]);
   const [selectedStore, setSelectedStore] = useState(null);
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     const articlesRef = ref(db, 'articles');
@@ -28,34 +28,47 @@ function KnowledgeTab() {
     : articles;
 
   return (
-    <div className="knowledge-layout">
-      <div className="left">
+    <div className="kb-container">
+      <div className="kb-header">
         <SearchBar />
-        <div className="articles">
-          {filtered.map((a) => (
-            <div className="article" key={a.id}>
-              <h3>{a.title || a.id}</h3>
-              <p>{a.content || 'No content available'}</p>
-            </div>
+        <button
+          className="filter-toggle"
+          onClick={() => setShowFilters((prev) => !prev)}
+        >
+          {showFilters ? 'Hide Filters' : 'Show Filters'}
+        </button>
+      </div>
+
+      {showFilters && (
+        <div className="filter-bar">
+          {['BILKA', 'FOOTEX', 'NETTO'].map((store) => (
+            <button
+              key={store}
+              className={`filter-btn ${selectedStore === store ? 'active' : ''}`}
+              onClick={() => setSelectedStore(store)}
+            >
+              {store}
+            </button>
           ))}
+          {selectedStore && (
+            <button className="clear-btn" onClick={() => setSelectedStore(null)}>
+              Clear
+            </button>
+          )}
         </div>
-      </div>
-      <div className="center">
-        {['BILKA', 'FOOTEX', 'NETTO'].map((store) => (
-          <button
-            key={store}
-            className={`store-btn ${selectedStore === store ? 'active' : ''}`}
-            onClick={() => setSelectedStore(store)}
-          >
-            {store}
-          </button>
-        ))}
-        {selectedStore && (
-          <button className="clear-btn" onClick={() => setSelectedStore(null)}>Clear</button>
+      )}
+
+      <div className="article-list">
+        {filtered.length > 0 ? (
+          filtered.map((article) => (
+            <div className="article-card" key={article.id}>
+              <h3>{article.title || article.id}</h3>
+              <p>{article.content || 'No content available'}</p>
+            </div>
+          ))
+        ) : (
+          <p>No articles found.</p>
         )}
-      </div>
-      <div className="right">
-        <SidePanel />
       </div>
     </div>
   );
