@@ -1,0 +1,56 @@
+.knowledge-layout {
+  display: flex;
+  height: 100%;
+}
+
+.left {
+  flex: 2;
+  padding: 16px;
+  border-right: 1px solid #ddd;
+  overflow-y: auto;
+}
+
+.articles .article {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.center {
+  flex: 1;
+  padding: 16px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.store-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: #ebf5f0;
+  color: #007a5e;
+  border: 1px solid #cde9dd;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.store-btn.active {
+  background: #d2eee3;
+}
+
+.clear-btn {
+  background: #f1f1f1;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.right {
+  flex: 1.2;
+  padding: 16px;
+}
