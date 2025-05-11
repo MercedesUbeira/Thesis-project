@@ -15,18 +15,19 @@ function SidePanel() {
 
       {/* Tabs on the right */}
       <div className="tab-panel">
+      <button
+          className={`tab-button ${activeTab === 'ticket' ? 'active' : ''}`}
+          onClick={() => setActiveTab('ticket')}
+        >
+          TICKET SUMMARY
+        </button>
         <button
           className={`tab-button ${activeTab === 'knowledge' ? 'active' : ''}`}
           onClick={() => setActiveTab('knowledge')}
         >
           KNOWLEDGE BASE
         </button>
-        <button
-          className={`tab-button ${activeTab === 'ticket' ? 'active' : ''}`}
-          onClick={() => setActiveTab('ticket')}
-        >
-          TICKET SUMMARY
-        </button>
+       
       </div>
     </div>
   );
