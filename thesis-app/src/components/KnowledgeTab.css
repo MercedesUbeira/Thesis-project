@@ -1,63 +1,98 @@
-.kb-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+/* TicketSummary.css */
+
+.ticket-summary-container {
+  padding: 24px;
+  max-width: 700px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.kb-header {
+.ticket-summary-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.ticket-section {
+  margin-bottom: 20px;
+}
+
+.ticket-section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.filter-toggle {
-  padding: 8px 12px;
-  background: #f3f4f6;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  cursor: pointer;
+.ticket-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: capitalize;
 }
 
-.filter-bar {
+.ticket-copy-button {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 14px;
   display: flex;
-  gap: 10px;
-  margin: 16px 0;
+  align-items: center;
+  transition: color 0.2s ease;
 }
 
-.filter-btn {
-  padding: 8px 14px;
-  border-radius: 20px;
-  border: 1px solid #cce5db;
-  background: #ebf5f0;
-  color: #007a5e;
-  cursor: pointer;
+.ticket-copy-button:hover {
+  color: #111827;
 }
 
-.filter-btn.active {
-  background: #d2eee3;
-  font-weight: bold;
+.ticket-copy-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
 }
 
-.clear-btn {
-  background: #f3f4f6;
-  padding: 6px 10px;
-  border: 1px solid #ccc;
+.ticket-section-text {
+  font-size: 14px;
+  color: #374151;
+  margin-top: 4px;
+}
+
+.ticket-generate-container {
+  margin-top: 30px;
+}
+
+.ticket-generate-button {
+  background-color: #16a34a;
+  color: white;
+  padding: 10px 16px;
   border-radius: 6px;
+  font-weight: 500;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+  border: none;
 }
 
-.article-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  overflow-y: auto;
+.ticket-generate-button:hover {
+  background-color: #15803d;
 }
 
-.article-card {
-  background: #fff;
-  border: 1px solid #ddd;
+.ticket-no-suggestions {
+  margin-top: 16px;
+  background-color: #fff7ed;
+  border: 1px solid #fbbf24;
+  color: #d97706;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ticket-oversight-display {
+  margin-top: 24px;
   padding: 16px;
-  border-radius: 8px;
+  background-color: #f3f4f6;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  white-space: pre-wrap;
 }
