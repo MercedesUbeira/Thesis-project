@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SidePanel from './components/SidePanel';
+import TicketSummary from './components/TicketSummary';
+import KnowledgeBase from './components/KnowledgeBase';
+import './index.css'; // global styles
 
 function App() {
+  const [activeTab, setActiveTab] = useState('Ticket Summary');
+
   return (
-    <div className="min-h-screen flex bg-gray-100">
-      <SidePanel />
-    </div>
+    <div className="app-container">
+  <SidePanel activeTab={activeTab} onTabChange={setActiveTab} />
+  <main className="main-content">
+    {activeTab === 'Ticket Summary' && <TicketSummary />}
+    {activeTab === 'Knowledge Base' && <KnowledgeBase />}
+  </main>
+</div>
+
   );
 }
 

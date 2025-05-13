@@ -1,36 +1,22 @@
-import React, { useState } from 'react';
-import KnowledgeTab from './KnowledgeTab';
-import TicketSummary from './TicketSummary';
+import React from 'react';
 import './SidePanel.css';
 
-function SidePanel() {
-  const [activeTab, setActiveTab] = useState('ticket'); // default: ticket summary
+const SidePanel = ({ activeTab, onTabChange }) => {
+  const tabs = ['Ticket Summary', 'Knowledge Base', 'Other Tools'];
 
   return (
-    <div className="layout-container">
-      {/* Main content */}
-      <div className="main-panel">
-        {activeTab === 'knowledge' ? <KnowledgeTab /> : <TicketSummary />}
-      </div>
-
-      {/* Tabs on the right */}
-      <div className="tab-panel">
-      <button
-          className={`tab-button ${activeTab === 'ticket' ? 'active' : ''}`}
-          onClick={() => setActiveTab('ticket')}
+    <aside className="side-panel">
+      {tabs.map(tab => (
+        <div
+          key={tab}
+          className={`side-tab ${activeTab === tab ? 'active' : ''}`}
+          onClick={() => onTabChange(tab)}
         >
-          TICKET SUMMARY
-        </button>
-        <button
-          className={`tab-button ${activeTab === 'knowledge' ? 'active' : ''}`}
-          onClick={() => setActiveTab('knowledge')}
-        >
-          KNOWLEDGE BASE
-        </button>
-       
-      </div>
-    </div>
+          {tab}
+        </div>
+      ))}
+    </aside>
   );
-}
+};
 
 export default SidePanel;

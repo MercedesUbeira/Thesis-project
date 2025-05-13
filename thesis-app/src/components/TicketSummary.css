@@ -1,98 +1,75 @@
 /* TicketSummary.css */
 
-.ticket-summary-container {
+.ticket-summary {
   padding: 24px;
   max-width: 700px;
   margin: 0 auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: sans-serif;
 }
 
-.ticket-summary-title {
+.ticket-summary h1 {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: bold;
   margin-bottom: 24px;
 }
 
-.ticket-section {
+.section {
   margin-bottom: 20px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 12px;
 }
 
-.ticket-section-header {
+.section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-weight: 500;
 }
 
-.ticket-section-title {
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: capitalize;
-}
-
-.ticket-copy-button {
+.section-header button {
   background: none;
   border: none;
-  color: #6b7280;
+  color: #4b5563;
   cursor: pointer;
   font-size: 14px;
-  display: flex;
-  align-items: center;
-  transition: color 0.2s ease;
 }
 
-.ticket-copy-button:hover {
-  color: #111827;
-}
-
-.ticket-copy-icon {
-  width: 18px;
-  height: 18px;
-  margin-right: 4px;
-}
-
-.ticket-section-text {
+.section p {
   font-size: 14px;
   color: #374151;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
-.ticket-generate-container {
-  margin-top: 30px;
-}
-
-.ticket-generate-button {
-  background-color: #16a34a;
+.generate-btn {
+  margin-top: 20px;
+  background: #16a34a;
   color: white;
   padding: 10px 16px;
   border-radius: 6px;
   font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
   border: none;
+  cursor: pointer;
 }
 
-.ticket-generate-button:hover {
-  background-color: #15803d;
-}
-
-.ticket-no-suggestions {
+.no-suggestions {
   margin-top: 16px;
-  background-color: #fff7ed;
+  background: #fff7ed;
   border: 1px solid #fbbf24;
-  color: #d97706;
+  padding: 12px;
   text-align: center;
-  padding: 10px;
+  color: #d97706;
   border-radius: 6px;
-  font-size: 14px;
   font-weight: 500;
+  font-size: 14px;
 }
 
-.ticket-oversight-display {
+.oversight-box {
   margin-top: 24px;
-  padding: 16px;
-  background-color: #f3f4f6;
-  border-radius: 6px;
+  background: #f3f4f6;
   border: 1px solid #d1d5db;
-  font-size: 14px;
+  padding: 16px;
+  border-radius: 6px;
   white-space: pre-wrap;
+  font-size: 14px;
+  color: #374151;
 }
