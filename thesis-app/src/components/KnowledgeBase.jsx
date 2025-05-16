@@ -14,6 +14,7 @@ const KnowledgeBase = () => {
     const articlesRef = ref(db, 'articles');
     onValue(articlesRef, (snapshot) => {
       const data = snapshot.val();
+       console.log('📦 Firebase data:', data);
       if (data) {
         const loaded = Object.values(data);
         setArticles(loaded);
