@@ -11,18 +11,21 @@ const KnowledgeBase = () => {
   const [language, setLanguage] = useState('Danish');
 
   useEffect(() => {
-    const articlesRef = ref(db, 'articles');
-    onValue(articlesRef, (snapshot) => {
-      const data = snapshot.val();
-       console.log('📦 Firebase data:', data);
-      if (data) {
-        const loaded = Object.values(data);
-        setArticles(loaded);
-      } else {
-        setArticles([]);
-      }
-    });
-  }, []);
+  const rootRef = ref(db, '/'); 
+  onValue(rootRef, (snapshot) => {
+    const data = snapshot.val();
+    console.log('📦 Firebase data:', data);  
+
+    if (data && data.articles) {
+      const loaded = Object.values(data.articles);
+      console.log('✅ Loaded articles:', loaded); 
+      setArticles(loaded);
+    } else {
+      console.warn('⚠️ No articles found in Firebase');
+      setArticles([]);
+    }
+  });
+}, []);
 
   const filtered = articles.filter((article) => {
     const searchText = query.toLowerCase();
