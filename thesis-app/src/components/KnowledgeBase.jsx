@@ -10,18 +10,18 @@ const KnowledgeBase = () => {
   const [stores, setStores] = useState([]);
   const [language, setLanguage] = useState('Danish');
 
-  useEffect(() => {
-  const rootRef = ref(db, '/'); 
-  onValue(rootRef, (snapshot) => {
-    const data = snapshot.val();
-    console.log('📦 Firebase data:', data);  
+ useEffect(() => {
+  const articlesRef = ref(db, 'articles'); // ✅ points to correct level now
 
-    if (data && data.articles) {
-      const loaded = Object.values(data.articles);
-      console.log('✅ Loaded articles:', loaded); 
+  onValue(articlesRef, (snapshot) => {
+    const data = snapshot.val();
+    console.log('📦 Firebase data:', data); // ✅ should log article1, article2
+
+    if (data) {
+      const loaded = Object.values(data); // turns {article1: {...}} → [{...}, {...}]
       setArticles(loaded);
     } else {
-      console.warn('⚠️ No articles found in Firebase');
+      console.warn('⚠️ No data at /articles');
       setArticles([]);
     }
   });
