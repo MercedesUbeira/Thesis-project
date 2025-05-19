@@ -25,18 +25,15 @@ const KnowledgeBase = () => {
   }, []);
 
   const filtered = articles.filter((article) => {
-    const searchText = query.toLowerCase();
+    const searchText = query.trim().toLowerCase();
 
-    const matchesText =
-      article.title?.toLowerCase().includes(searchText) ||
-      article.shortDescription?.toLowerCase().includes(searchText) ||
-      article.longDescription?.toLowerCase().includes(searchText);
+    const titleMatch = article.title?.toLowerCase().includes(searchText);
+    const shortMatch = article.shortDescription?.toLowerCase().includes(searchText);
+    const longMatch = article.longDescription?.toLowerCase().includes(searchText);
 
-    const matchesStore =
-      stores.length === 0 || stores.includes(article.filter); // 💡 'filter' field from Firebase
-
-    const matchesLanguage =
-      !language || article.language === language;
+    const matchesText = !searchText || titleMatch || shortMatch || longMatch;
+    const matchesStore = stores.length === 0 || stores.includes(article.filter);
+    const matchesLanguage = !language || article.language === language;
 
     return matchesText && matchesStore && matchesLanguage;
   });
