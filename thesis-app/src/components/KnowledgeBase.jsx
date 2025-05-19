@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, query, orderByChild, equalTo } from 'firebase/database';
 import { db } from '../firebase';
 import './KnowledgeBase.css';
+
+
 
 const KnowledgeBase = () => {
   const [articles, setArticles] = useState([]);
@@ -10,19 +12,25 @@ const KnowledgeBase = () => {
   const [stores, setStores] = useState([]);
   const [language, setLanguage] = useState('Danish');
 
-  useEffect(() => {
-    const articlesRef = ref(db, 'articles');
-    onValue(articlesRef, (snapshot) => {
-      const data = snapshot.val();
-      console.log('📦 Firebase data:', data);
-      if (data) {
-        setArticles(Object.values(data));
-      } else {
-        console.warn('⚠️ No data found');
-        setArticles([]);
-      }
-    });
-  }, []);
+useEffect(() => {
+  let articlesRef = ref(db, 'articles');
+
+
+  if (stores.length === 1) {
+    articlesRef = query(ref(db, 'articles'), orderByChild('filter'), equalTo(stores[0]));
+  }
+
+  onValue(articlesRef, (snapshot) => {
+    const data = snapshot.val();
+    console.log('📦 Firebase data:', data);
+    if (data) {
+      setArticles(Object.values(data));
+    } else {
+      setArticles([]);
+    }
+  });
+}, [stores.join(',')]); 
+
 
   const filtered = articles.filter((article) => {
     const searchText = query.trim().toLowerCase();
