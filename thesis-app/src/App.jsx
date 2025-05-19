@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SidePanel from './components/SidePanel';
 import TicketSummary from './components/TicketSummary';
 import KnowledgeBase from './components/KnowledgeBase';
-import './index.css'; // global styles
+import './index.css'; 
 
 function App() {
   const [activeTab, setActiveTab] = useState('Ticket Summary');

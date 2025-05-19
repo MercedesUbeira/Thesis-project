@@ -11,12 +11,12 @@ const SearchBar = ({ query, onSearch, tags, onAddTag, onRemoveTag, language, set
 
   const handleFilterSelect = (tag) => {
     tags.includes(tag) ? onRemoveTag(tag) : onAddTag(tag);
-    setShowFilters(false); // collapse dropdown
+    setShowFilters(false); 
   };
 
   const handleLanguageSelect = (lang) => {
     setLanguage(lang);
-    setShowLanguages(false); // collapse dropdown
+    setShowLanguages(false);
   };
 
   const langCodeMap = {

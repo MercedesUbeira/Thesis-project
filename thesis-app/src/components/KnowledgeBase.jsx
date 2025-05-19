@@ -1,4 +1,3 @@
-// src/components/KnowledgeBase.jsx
 import React, { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import { ref, onValue, query, orderByChild, equalTo } from 'firebase/database';
