@@ -10,32 +10,30 @@ const KnowledgeBase = () => {
   const [stores, setStores] = useState([]);
   const [language, setLanguage] = useState('Danish');
 
- useEffect(() => {
-  const articlesRef = ref(db, 'articles'); // ✅ points to correct level now
-
-  onValue(articlesRef, (snapshot) => {
-    const data = snapshot.val();
-    console.log('📦 Firebase data:', data); // ✅ should log article1, article2
-
-    if (data) {
-      const loaded = Object.values(data); // turns {article1: {...}} → [{...}, {...}]
-      setArticles(loaded);
-    } else {
-      console.warn('⚠️ No data at /articles');
-      setArticles([]);
-    }
-  });
-}, []);
+  useEffect(() => {
+    const articlesRef = ref(db, 'articles');
+    onValue(articlesRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log('📦 Firebase data:', data);
+      if (data) {
+        setArticles(Object.values(data));
+      } else {
+        console.warn('⚠️ No data found');
+        setArticles([]);
+      }
+    });
+  }, []);
 
   const filtered = articles.filter((article) => {
     const searchText = query.toLowerCase();
 
     const matchesText =
       article.title?.toLowerCase().includes(searchText) ||
-      article.content?.toLowerCase().includes(searchText);
+      article.shortDescription?.toLowerCase().includes(searchText) ||
+      article.longDescription?.toLowerCase().includes(searchText);
 
     const matchesStore =
-      stores.length === 0 || stores.includes(article.store);
+      stores.length === 0 || stores.includes(article.filter); // 💡 'filter' field from Firebase
 
     const matchesLanguage =
       !language || article.language === language;
@@ -73,11 +71,9 @@ const KnowledgeBase = () => {
                 <h3>{article.title}</h3>
                 <span className="updated">Last update: {article.updated || 'N/A'}</span>
               </div>
-              <p className="description">{article.content}</p>
+              <p className="description">{article.shortDescription}</p>
               <div className="tags">
-                {article.tags?.map((tag, i) => (
-                  <span key={i} className="tag">{tag}</span>
-                ))}
+                <span className="tag">{article.filter}</span>
               </div>
             </div>
           ))}
