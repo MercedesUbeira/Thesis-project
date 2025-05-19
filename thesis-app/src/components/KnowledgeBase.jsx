@@ -59,9 +59,6 @@ const KnowledgeBase = () => {
         </div>
       ) : (
         <div className="article-list">
-          <p className="article-language-note">
-            This request is in {language}, therefore articles shown are in {language}.
-          </p>
           {filtered.map((article, index) => (
             <div key={index} className="article-card">
               <div className="article-header">
