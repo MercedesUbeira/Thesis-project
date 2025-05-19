@@ -1,56 +1,48 @@
+// src/components/KnowledgeBase.jsx
 import React, { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import { ref, onValue, query, orderByChild, equalTo } from 'firebase/database';
 import { db } from '../firebase';
 import './KnowledgeBase.css';
 
-
-
 const KnowledgeBase = () => {
   const [articles, setArticles] = useState([]);
-  const [query, setQuery] = useState('');
+  const [queryText, setQueryText] = useState('');
   const [stores, setStores] = useState([]);
   const [language, setLanguage] = useState('Danish');
 
-useEffect(() => {
-  let articlesRef = ref(db, 'articles');
+  useEffect(() => {
+    const baseRef = ref(db, 'articles');
 
-
-  if (stores.length === 1) {
-    articlesRef = query(ref(db, 'articles'), orderByChild('filter'), equalTo(stores[0]));
-  }
-
-  onValue(articlesRef, (snapshot) => {
-    const data = snapshot.val();
-    console.log('📦 Firebase data:', data);
-    if (data) {
-      setArticles(Object.values(data));
-    } else {
-      setArticles([]);
+    let articlesRef = baseRef;
+    if (stores.length === 1) {
+      articlesRef = query(baseRef, orderByChild('filter'), equalTo(stores[0]));
     }
-  });
-}, [stores.join(',')]); 
 
+    onValue(articlesRef, (snapshot) => {
+      const data = snapshot.val();
+      setArticles(data ? Object.values(data) : []);
+    });
+  }, [stores.join(',')]);
 
   const filtered = articles.filter((article) => {
-    const searchText = query.trim().toLowerCase();
+    const searchText = queryText.toLowerCase();
 
-    const titleMatch = article.title?.toLowerCase().includes(searchText);
-    const shortMatch = article.shortDescription?.toLowerCase().includes(searchText);
-    const longMatch = article.longDescription?.toLowerCase().includes(searchText);
+    const matchesText =
+      article.title?.toLowerCase().includes(searchText) ||
+      article.shortDescription?.toLowerCase().includes(searchText) ||
+      article.longDescription?.toLowerCase().includes(searchText);
 
-    const matchesText = !searchText || titleMatch || shortMatch || longMatch;
-    const matchesStore = stores.length === 0 || stores.includes(article.filter);
     const matchesLanguage = !language || article.language === language;
 
-    return matchesText && matchesStore && matchesLanguage;
+    return matchesText && matchesLanguage;
   });
 
   return (
     <div className="knowledge-base">
       <SearchBar
-        query={query}
-        onSearch={setQuery}
+        query={queryText}
+        onSearch={setQueryText}
         tags={stores}
         onAddTag={(store) => setStores([...stores, store])}
         onRemoveTag={(store) => setStores(stores.filter((s) => s !== store))}
@@ -79,6 +71,7 @@ useEffect(() => {
               <p className="description">{article.shortDescription}</p>
               <div className="tags">
                 <span className="tag">{article.filter}</span>
+                <span className="tag">{article.language}</span>
               </div>
             </div>
           ))}
