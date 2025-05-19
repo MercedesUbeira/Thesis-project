@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import SidePanel from './components/SidePanel.jsx';
-import TicketSummary from './components/TicketSummary';
-import KnowledgeBase from './components/KnowledgeBase';
-import './index.css'; 
+import TicketSummary from './components/TicketSummary.jsx';
+import KnowledgeBase from './components/KnowledgeBase.jsx';
+import './index.css';
 
 function App() {
   const [activeTab, setActiveTab] = useState('Ticket Summary');
